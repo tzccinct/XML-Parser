@@ -152,7 +152,7 @@ WriteMakefile1(
   MIN_PERL_VERSION => '5.00405',
   META_MERGE => {
     resources => {
-      repository => 'http://github.com/chorny/XML-Parser',
+      repository => 'http://github.com/toddr/XML-Parser',
     },
   },
   #BUILD_REQUIRES => {
