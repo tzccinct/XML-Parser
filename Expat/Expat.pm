@@ -455,6 +455,10 @@ sub parse {
         no strict 'refs';
         $ioref = *{$arg}{IO} if defined *{$arg};
       };
+      if (ref($ioref) eq 'FileHandle') {
+        #for perl 5.10.x and possibly earlier, see t/file_open_scalar.t
+        require FileHandle;
+      }
     }
   }
   
