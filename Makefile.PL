@@ -155,8 +155,9 @@ WriteMakefile1(
       repository => 'http://github.com/toddr/XML-Parser',
     },
   },
-  #BUILD_REQUIRES => {
-  #},
+  BUILD_REQUIRES => {
+    'Test::More' => 0,
+  },
 
   NAME	=> 'XML::Parser',
   DIR	=> [qw(Expat)],
