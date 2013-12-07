@@ -17,3 +17,6 @@ Expat/MYMETA.*
 Expat/Expat.bs
 Expat/Expat.c
 Expat/Expat.o
+Expat/dll.base
+Expat/dll.exp
+Expat/Expat.def
