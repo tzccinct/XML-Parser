@@ -212,11 +212,11 @@ append_error(XML_Parser parser, char * err)
     if (! err)
       err = (char *) XML_ErrorString(XML_GetErrorCode(parser));
 
-    sv_catpvf(*errstr, "\n%s at line %d, column %d, byte %d%s",
+    sv_catpvf(*errstr, "\n%s at line %ld, column %ld, byte %ld%s",
 	      err,
-	      XML_GetCurrentLineNumber(parser),
-	      XML_GetCurrentColumnNumber(parser),
-	      XML_GetCurrentByteIndex(parser),
+	      (long)XML_GetCurrentLineNumber(parser),
+	      (long)XML_GetCurrentColumnNumber(parser),
+	      (long)XML_GetCurrentByteIndex(parser),
 	      dopos ? ":\n" : "");
 
     if (dopos)
