@@ -218,7 +218,9 @@ append_error(XML_Parser parser, char * err)
 	      (long)XML_GetCurrentColumnNumber(parser),
 	      (long)XML_GetCurrentByteIndex(parser),
 	      dopos ? ":\n" : "");
-
+	      // See https://rt.cpan.org/Ticket/Display.html?id=92030
+	      // It explains why type conversion is used.
+	      
     if (dopos)
       {
 	int count;
