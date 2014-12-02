@@ -164,7 +164,7 @@ WriteMakefile1(
   dist      => {COMPRESS => 'gzip', SUFFIX => '.gz'},
   VERSION_FROM => 'Parser.pm',
   PREREQ_PM    => {
-    LWP => 0, #for tests
+    'LWP::UserAgent' => 0, #for tests
   },
     $^O =~/win/i ? (
         dist => {
