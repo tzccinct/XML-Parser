@@ -11,6 +11,7 @@ cover_db
 Build.bat
 *.tmp
 *.orig
+*.rej
 META.*
 MYMETA.*
 Expat/MYMETA.*
