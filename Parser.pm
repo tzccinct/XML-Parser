@@ -360,7 +360,7 @@ XML::Parser - A perl module for parsing XML documents
   $p3->parsefile('junk.xml', ErrorContext => 3);
 
 =begin man
-.ds PI PI
+.ds PI
 
 =end man
 

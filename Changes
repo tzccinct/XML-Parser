@@ -3,6 +3,7 @@ Revision history for Perl extension XML::Parser.
     - Better compatibility with FileHandle on perl 5.10
 
 2.43 2014-12-11 (by Todd Rinaldo)
+    - POD patch to man from Debian via Nicholas Bamber
     - POD patch from Debian via gregor herrmann.
     - Add more useful error message on parse to Expat
     - Fix LWP dependency to be LWP::Useragent
