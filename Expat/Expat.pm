@@ -470,12 +470,9 @@ sub parse {
     
     $prev_rs = $ioclass->input_record_separator("\n$delim\n")
       if defined($delim);
-
-    eval { $result = ParseStream($parser, $ioref, $delim) };
-    if($@) {
-      $self->xpcroak("$@");
-    }
-
+    
+    $result = ParseStream($parser, $ioref, $delim);
+    
     $ioclass->input_record_separator($prev_rs)
       if defined($delim);
   } else {
