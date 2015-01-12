@@ -9,6 +9,7 @@
 BEGIN {print "1..27\n";}
 END {print "not ok 1\n" unless $loaded;}
 use XML::Parser;
+use FileHandle; # Make 5.10.0 happy.
 $loaded = 1;
 print "ok 1\n";
 

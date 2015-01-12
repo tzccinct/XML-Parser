@@ -3,6 +3,7 @@ Revision history for Perl extension XML::Parser.
 2.44_01 2015-01-11 (by Todd Rinaldo)
     - RT 99098 - Revert "Add more useful error message on parse to Expat". It breaks
       XML::Twig. Calling code will need to do this if it's needed.
+    - RT 100959 - Add use FileHandle to t/astress.t - Make perl 5.10.0 happy.
 
 2.43 2014-12-11 (by Todd Rinaldo)
     - POD patch to man from Debian via Nicholas Bamber
