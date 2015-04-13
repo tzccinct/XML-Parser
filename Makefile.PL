@@ -157,6 +157,7 @@ WriteMakefile1(
   },
   TEST_REQUIRES => {
     'Test::More' => 0,
+    'warnings' => 0,
   },
 
   NAME	=> 'XML::Parser',
