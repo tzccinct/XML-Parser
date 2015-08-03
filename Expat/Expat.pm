@@ -10,7 +10,7 @@ use Carp;
 require DynaLoader;
 
 @ISA = qw(DynaLoader);
-$VERSION = "2.44";
+$VERSION = '2.44';
 
 $have_File_Spec = $INC{'File/Spec.pm'} || do 'File/Spec.pm';
 
@@ -112,7 +112,7 @@ sub setHandlers {
   while (@handler_pairs) {
     my $type = shift @handler_pairs;
     my $handler = shift @handler_pairs;
-    croak "Handler for $type not a Code ref"
+    croak 'Handler for $type not a Code ref'
       unless (! defined($handler) or ! $handler or ref($handler) eq 'CODE');
 
     my $hndl = $self->{_Setters}->{$type};
@@ -146,7 +146,7 @@ sub xpcarp {
 
   my $eclines = $self->{ErrorContext};
   my $line = GetCurrentLineNumber($_[0]->{Parser});
-  $message .= " at line $line";
+  $message .= ' at line $line';
   $message .= ":\n" . $self->position_in_context($eclines)
     if defined($eclines);
   carp $message;
@@ -435,7 +435,7 @@ sub DESTROY {
 sub parse {
   my $self = shift;
   my $arg = shift;
-  croak "Parse already in progress (Expat)" if $self->{_State_};
+  croak 'Parse already in progress (Expat)' if $self->{_State_};
   $self->{_State_} = 1;
   my $parser = $self->{Parser};
   my $ioref;
@@ -466,7 +466,7 @@ sub parse {
     my $delim = $self->{Stream_Delimiter};
     my $prev_rs;
     my $ioclass = ref $ioref;
-    $ioclass = "IO::Handle" if !length $ioclass;
+    $ioclass = 'IO::Handle' if !length $ioclass;
     
     $prev_rs = $ioclass->input_record_separator("\n$delim\n")
       if defined($delim);
@@ -490,7 +490,7 @@ sub parsestring {
 
 sub parsefile {
   my $self = shift;
-  croak "Parser has already been used" if $self->{_State_};
+  croak 'Parser has already been used' if $self->{_State_};
   local(*FILE);
   open(FILE, $_[0]) or  croak "Couldn't open $_[0]:\n$!";
   binmode(FILE);
@@ -560,10 +560,10 @@ sub asString {
     $ret = $self->{Tag};
   }
   elsif ($self->{Type} == EMPTY) {
-    return "EMPTY";
+    return 'EMPTY';
   }
   elsif ($self->{Type} == ANY) {
-    return "ANY";
+    return 'ANY';
   }
   elsif ($self->{Type} == MIXED) {
     $ret = '(#PCDATA';

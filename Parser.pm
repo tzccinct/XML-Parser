@@ -49,7 +49,7 @@ sub new {
       $stylepkg = "\u$style";
       
       eval {
-          my $fullpkg = 'XML::Parser::Style::' . $stylepkg;
+          my $fullpkg = "XML::Parser::Style::$stylepkg";
           my $stylefile = $fullpkg;
           $stylefile =~ s/::/\//g;
           require "$stylefile.pm";
@@ -57,7 +57,7 @@ sub new {
       };
       if ($@) {
           # fallback to old behaviour
-          $stylepkg = 'XML::Parser::' . $stylepkg;
+          $stylepkg = "XML::Parser::$stylepkg";
       }
     }
     
@@ -110,7 +110,7 @@ sub new {
 sub setHandlers {
   my ($self, @handler_pairs) = @_;
   
-  croak("Uneven number of arguments to setHandlers method")
+  croak('Uneven number of arguments to setHandlers method')
     if (int(@handler_pairs) & 1);
   
   my @ret;
