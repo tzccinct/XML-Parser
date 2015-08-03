@@ -264,9 +264,9 @@ sub initial_ext_ent_handler {
 
     $LWP_load_failed = 1;
 
-    my $cmsg = "Couldn't load LWP based external entity handler\n";
-    $cmsg .= "Switching to file-based external entity handler\n";
-    $cmsg .= " (To avoid this message, use NoLWP option to XML::Parser)\n";
+    my $cmsg = "Couldn't load LWP based external entity handler\n"
+	. "Switching to file-based external entity handler\n"
+	. " (To avoid this message, use NoLWP option to XML::Parser)\n";
     warn($cmsg);
   }
 
