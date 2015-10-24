@@ -1031,6 +1031,7 @@ externalEntityRef(XML_Parser parser,
   if (count >= 1) {
     SV * result = POPs;
     int type;
+    SV * errsv;
 
     if (result && (type = SvTYPE(result)) > 0) {
       SV **pval = hv_fetch((HV*) SvRV(cbv->self_sv), "Parser", 6, 0);
@@ -1067,12 +1068,13 @@ externalEntityRef(XML_Parser parser,
 			     G_SCALAR | G_EVAL);
 	SPAGAIN;
 
-	if (SvTRUE(ERRSV)) {
+	errsv = ERRSV;
+	if (SvTRUE(errsv)) {
 	  char *hold;
 	  STRLEN   len;
 
 	  POPs;
-	  hold = SvPV(ERRSV, len);
+	  hold = SvPV(errsv, len);
 	  New(326, errmsg, len + 1, char);
 	  if (len)
 	    Copy(hold, errmsg, len, char);
@@ -1097,8 +1099,9 @@ externalEntityRef(XML_Parser parser,
 	  SPAGAIN;
 	}
 
-	if (SvTRUE(ERRSV))
-	  append_error(aTHX_ parser, SvPV_nolen(ERRSV));
+	errsv = ERRSV;
+	if (SvTRUE(errsv))
+	  append_error(aTHX_ parser, SvPV_nolen(errsv));
       }
     }
   }
