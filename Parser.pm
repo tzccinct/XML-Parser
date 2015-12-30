@@ -471,7 +471,7 @@ This option has no effect if the ExternEnt or ExternEntFin handlers are
 directly set. Otherwise, if true, it forces the use of a file based external
 entity handler.
 
-=item * Non-Expat-Options
+=item * Non_Expat_Options
 
 If provided, this should be an anonymous hash whose keys are options that
 shouldn't be passed to Expat. This should only be of concern to those
