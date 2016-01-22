@@ -5,8 +5,8 @@ use Devel::CheckLib;
 
 use Config;
 
-$expat_libpath = '';
-$expat_incpath = '';
+$expat_libpath = $ENV{EXPATLIBPATH} || '';
+$expat_incpath = $ENV{EXPATINCPATH} || '';
 
 my @replacement_args;
 
