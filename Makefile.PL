@@ -61,7 +61,9 @@ you may (on some platforms) also have to set your LD_LIBRARY_PATH environment
 variable at run time for perl to find the library.
 
 Expat_Not_Installed;
-    #exit;
+    # exiting before Makefile generation silences CPANTesters reports
+    # when expat is not available.
+    exit 0;
 }
 
 if (not $expat_libpath and $] >= 5.006001 and $^O ne 'MSWin32') {
@@ -69,62 +71,6 @@ if (not $expat_libpath and $] >= 5.006001 and $^O ne 'MSWin32') {
   ($expat_libpath) = ExtUtils::Liblist->ext('-lexpat');
 }
 
-=for cmt
-
-unless ($expat_libpath) {
-  # Test for existence of libexpat
-  my $found = 0;
-  foreach (split(/\s+/, $Config{libpth})) {
-    if (-f "$_/libexpat." . $Config{so}) {
-      $expat_libpath=$_;
-      $found = 1;
-      last;
-    }
-  }
-
-  if (!$found and $^O eq 'MSWin32') {
-    if (-f 'C:/lib/Expat-2.0.0/Libs/libexpat.dll') {
-      $expat_libpath = 'C:/lib/Expat-2.0.0/Libs';
-      $expat_incpath = 'C:/lib/Expat-2.0.0/Source/lib';
-      $found = 1;
-    }
-
-  }
-  if ($found) {
-    print "libexpat found in $expat_libpath\n";
-  }
-
-  unless ($found) {
-    warn <<'Expat_Not_Installed;';
-
-Expat must be installed prior to building XML::Parser and I can't find
-it in the standard library directories. Install 'expat-devel' (or
-'libexpat1-dev') package with your OS package manager.
-
-Or you can download expat from:
-
-http://sourceforge.net/projects/expat/
-
-If expat is installed, but in a non-standard directory, then use the
-following options to Makefile.PL:
-
-    EXPATLIBPATH=...  To set the directory in which to find libexpat
-
-    EXPATINCPATH=...  To set the directory in which to find expat.h
-
-For example:
-
-    perl Makefile.PL EXPATLIBPATH=/home/me/lib EXPATINCPATH=/home/me/include
-
-Note that if you build against a shareable library in a non-standard location
-you may (on some platforms) also have to set your LD_LIBRARY_PATH environment
-variable at run time for perl to find the library.
-
-Expat_Not_Installed;
-    exit 0;
-  }
-}
-=cut
 
 # Don't try to descend into Expat directory for testing
 
