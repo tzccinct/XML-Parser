@@ -49,7 +49,7 @@ sub new {
       $stylepkg = "\u$style";
       
       eval {
-          my $fullpkg = 'XML::Parser::Style::' . $stylepkg;
+          my $fullpkg = "XML::Parser::Style::$stylepkg";
           my $stylefile = $fullpkg;
           $stylefile =~ s/::/\//g;
           require "$stylefile.pm";
@@ -57,12 +57,12 @@ sub new {
       };
       if ($@) {
           # fallback to old behaviour
-          $stylepkg = 'XML::Parser::' . $stylepkg;
+          $stylepkg = "XML::Parser::$stylepkg";
       }
     }
     
-    my $htype;
-    foreach $htype (keys %{$args{_HNDL_TYPES}}) {
+
+    for my $htype (keys %{$args{_HNDL_TYPES}}) {
       # Handlers explicitly given override
       # handlers from the Style package
       unless (defined($handlers->{$htype})) {
@@ -110,7 +110,7 @@ sub new {
 sub setHandlers {
   my ($self, @handler_pairs) = @_;
   
-  croak("Uneven number of arguments to setHandlers method")
+  croak('Uneven number of arguments to setHandlers method')
     if (int(@handler_pairs) & 1);
   
   my @ret;
@@ -264,9 +264,9 @@ sub initial_ext_ent_handler {
 
     $LWP_load_failed = 1;
 
-    my $cmsg = "Couldn't load LWP based external entity handler\n";
-    $cmsg .= "Switching to file-based external entity handler\n";
-    $cmsg .= " (To avoid this message, use NoLWP option to XML::Parser)\n";
+    my $cmsg = "Couldn't load LWP based external entity handler\n"
+	. "Switching to file-based external entity handler\n"
+	. " (To avoid this message, use NoLWP option to XML::Parser)\n";
     warn($cmsg);
   }
 
