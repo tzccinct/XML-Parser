@@ -62,7 +62,7 @@ sub new {
     }
     
 
-    for my $htype (keys %{$args{_HNDL_TYPES}}) {
+    foreach my $htype (keys %{$args{_HNDL_TYPES}}) {
       # Handlers explicitly given override
       # handlers from the Style package
       unless (defined($handlers->{$htype})) {
