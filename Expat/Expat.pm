@@ -3,14 +3,13 @@ package XML::Parser::Expat;
 require 5.004;
 
 use strict;
-use vars qw($VERSION @ISA %Handler_Setters %Encoding_Table @Encoding_Path
-  $have_File_Spec);
+our ( %Encoding_Table, @Encoding_Path, $have_File_Spec );
 use Carp;
 
 require DynaLoader;
 
-@ISA     = qw(DynaLoader);
-$VERSION = '2.44';
+our @ISA     = qw(DynaLoader);
+our $VERSION = '2.44';
 
 $have_File_Spec = $INC{'File/Spec.pm'} || do 'File/Spec.pm';
 
@@ -29,7 +28,7 @@ else {
 
 bootstrap XML::Parser::Expat $VERSION;
 
-%Handler_Setters = (
+our %Handler_Setters = (
     Start        => \&SetStartElementHandler,
     End          => \&SetEndElementHandler,
     Char         => \&SetCharacterDataHandler,
@@ -599,10 +598,9 @@ sub thiseq {
 package    #hide from PAUSE
   XML::Parser::ExpatNB;
 
-use vars qw(@ISA);
 use Carp;
 
-@ISA = qw(XML::Parser::Expat);
+our @ISA = qw(XML::Parser::Expat);
 
 sub parse {
     my $self  = shift;

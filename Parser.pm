@@ -10,7 +10,7 @@ package XML::Parser;
 
 use strict;
 
-use vars qw($VERSION $LWP_load_failed);
+our ( $VERSION, $LWP_load_failed );
 
 use Carp;
 
