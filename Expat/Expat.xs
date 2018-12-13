@@ -343,8 +343,8 @@ parse_stream(XML_Parser parser, SV * ioref)
   }
   else {
     tbuff = newSV(0);
-    tsiz = newSViv(BUFSIZE);
-    buffsize = BUFSIZE;
+    tsiz = newSViv(BUFSIZE); /* in UTF-8 characters */
+    buffsize = BUFSIZE * 6; /* in bytes that encode an UTF-8 string */
   }
 
   while (! done)
@@ -386,9 +386,11 @@ parse_stream(XML_Parser parser, SV * ioref)
 	  croak("read error");
 
 	tb = SvPV(tbuff, br);
-	if (br > 0)
+	if (br > 0) {
+	  if (br > buffsize)
+	    croak("The input buffer is not large enough for read UTF-8 decoded string");
 	  Copy(tb, buffer, br, char);
-	else
+	} else
 	  done = 1;
 
 	PUTBACK ;
