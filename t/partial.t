@@ -25,13 +25,13 @@ my $p = new XML::Parser(
 
 my $xpnb = $p->parse_start;
 
-open( REC, 'samples/REC-xml-19980210.xml' );
+open( my $rec, '<', 'samples/REC-xml-19980210.xml' );
 
-while (<REC>) {
+while (<$rec>) {
     $xpnb->parse_more($_);
 }
 
-close(REC);
+close($rec);
 
 $xpnb->parse_done;
 
