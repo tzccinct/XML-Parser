@@ -35,7 +35,7 @@ unless (
         incpath => $expat_incpath,
         ( $expat_libpath ? ( libpath => $expat_libpath ) : () ),
     )
-  ) {
+) {
     warn <<'Expat_Not_Installed;';
 
 Expat must be installed prior to building XML::Parser and I can't find
@@ -101,6 +101,7 @@ WriteMakefile1(
     MIN_PERL_VERSION => '5.00405',
     META_MERGE       => {
         resources => {
+            bugtracker => 'https://github.com/toddr/XML-Parser/issues',
             repository => 'http://github.com/toddr/XML-Parser',
         },
     },
