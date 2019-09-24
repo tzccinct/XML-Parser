@@ -23,9 +23,9 @@ XML::Parser - A perl module for parsing XML documents
     $p3->setHandlers(Char    => \&text,
                      Default => \&other);
 
-    open(FOO, 'xmlgenerator |');
-    $p3->parse(*FOO, ProtocolEncoding => 'ISO-8859-1');
-    close(FOO);
+    open(my $fh, 'xmlgenerator |');
+    $p3->parse($foo, ProtocolEncoding => 'ISO-8859-1');
+    close($foo);
 
     $p3->parsefile('junk.xml', ErrorContext => 3);
 
