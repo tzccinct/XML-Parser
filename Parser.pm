@@ -214,22 +214,22 @@ sub parsestring {
 sub parsefile {
     my $self = shift;
     my $file = shift;
-    local (*FILE);
-    open( FILE, $file ) or croak "Couldn't open $file:\n$!";
-    binmode(FILE);
+
+    open( my $fh, '<', $file ) or croak "Couldn't open $file:\n$!";
+    binmode($fh);
     my @ret;
     my $ret;
 
     $self->{Base} = $file;
 
     if (wantarray) {
-        eval { @ret = $self->parse( *FILE, @_ ); };
+        eval { @ret = $self->parse( $fh, @_ ); };
     }
     else {
-        eval { $ret = $self->parse( *FILE, @_ ); };
+        eval { $ret = $self->parse( $fh, @_ ); };
     }
     my $err = $@;
-    close(FILE);
+    close($fh);
     die $err if $err;
 
     return unless defined wantarray;
@@ -345,9 +345,9 @@ XML::Parser - A perl module for parsing XML documents
   $p3->setHandlers(Char    => \&text,
                    Default => \&other);
 
-  open(FOO, 'xmlgenerator |');
-  $p3->parse(*FOO, ProtocolEncoding => 'ISO-8859-1');
-  close(FOO);
+  open(my $fh, 'xmlgenerator |');
+  $p3->parse($foo, ProtocolEncoding => 'ISO-8859-1');
+  close($foo);
 
   $p3->parsefile('junk.xml', ErrorContext => 3);
 

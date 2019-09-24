@@ -89,14 +89,13 @@ sub load_encoding {
         }
     }
 
-    local (*ENC);
-    open( ENC, $file ) or croak("Couldn't open encmap $file:\n$!\n");
-    binmode(ENC);
+    open( my $fh, '<', $file ) or croak("Couldn't open encmap $file:\n$!\n");
+    binmode($fh);
     my $data;
-    my $br = sysread( ENC, $data, -s $file );
+    my $br = sysread( $fh, $data, -s $file );
     croak("Trouble reading $file:\n$!\n")
       unless defined($br);
-    close(ENC);
+    close($fh);
 
     my $name = LoadEncoding( $data, $br );
     croak("$file isn't an encmap file")
@@ -499,11 +498,11 @@ sub parsestring {
 sub parsefile {
     my $self = shift;
     croak 'Parser has already been used' if $self->{_State_};
-    local (*FILE);
-    open( FILE, $_[0] ) or croak "Couldn't open $_[0]:\n$!";
-    binmode(FILE);
-    my $ret = $self->parse(*FILE);
-    close(FILE);
+    
+    open( my $fh, '<', $_[0] ) or croak "Couldn't open $_[0]:\n$!";
+    binmode($fh);
+    my $ret = $self->parse($fh);
+    close($fh);
     $ret;
 }
 
@@ -685,9 +684,9 @@ XML::Parser::Expat - Lowlevel access to James Clark's expat XML parser
  $parser->setHandlers('Start' => \&sh,
                       'End'   => \&eh,
                       'Char'  => \&ch);
- open(FOO, '<', 'info.xml') or die "Couldn't open";
- $parser->parse(*FOO);
- close(FOO);
+ open(my $fh, '<', 'info.xml') or die "Couldn't open";
+ $parser->parse($fh);
+ close($fh);
  # $parser->parse('<foo id="me"> here <em>we</em> go </foo>');
 
  sub sh
