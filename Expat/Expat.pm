@@ -1,17 +1,17 @@
 package XML::Parser::Expat;
 
-require 5.004;
-
 use strict;
-our ( %Encoding_Table, @Encoding_Path, $have_File_Spec );
+
+#use warnings; No warnings numeric??
+
+use XSLoader;
 use Carp;
 
-require DynaLoader;
-
-our @ISA     = qw(DynaLoader);
 our $VERSION = '2.44_01';
 
-$have_File_Spec = $INC{'File/Spec.pm'} || do 'File/Spec.pm';
+our ( %Encoding_Table, @Encoding_Path, $have_File_Spec );
+
+use File::Spec ();
 
 %Encoding_Table = ();
 if ($have_File_Spec) {
@@ -26,7 +26,7 @@ else {
     @Encoding_Path = ( grep( -d $_, map( $_ . '/XML/Parser/Encodings', @INC ) ), '.' );
 }
 
-bootstrap XML::Parser::Expat $VERSION;
+XSLoader::load( 'XML::Parser::Expat', $VERSION );
 
 our %Handler_Setters = (
     Start        => \&SetStartElementHandler,
@@ -498,7 +498,7 @@ sub parsestring {
 sub parsefile {
     my $self = shift;
     croak 'Parser has already been used' if $self->{_State_};
-    
+
     open( my $fh, '<', $_[0] ) or croak "Couldn't open $_[0]:\n$!";
     binmode($fh);
     my $ret = $self->parse($fh);
